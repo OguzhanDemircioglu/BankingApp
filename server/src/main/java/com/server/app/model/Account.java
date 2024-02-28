@@ -24,13 +24,13 @@ public class Account {
     @Column(name = "id", unique = true, updatable = false, nullable = false, columnDefinition = "VARCHAR(255)")
     private String id;
 
-    @Column(name = "number", unique = true)
+    @Column(name = "number", unique = true, nullable = false)
     private String number;
 
-    @Column(name = "name", unique = true)
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @Column(name = "balance")
+    @Column(name = "balance", nullable = false)
     private BigDecimal balance;
 
     @Column(name = "created_at")
@@ -38,4 +38,8 @@ public class Account {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
