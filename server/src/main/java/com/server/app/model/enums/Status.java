@@ -1,4 +1,4 @@
-package com.server.app.constant;
+package com.server.app.model.enums;
 
 public enum Status {
     SUCCESS,

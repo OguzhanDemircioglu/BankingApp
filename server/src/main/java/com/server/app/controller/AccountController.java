@@ -1,5 +1,6 @@
 package com.server.app.controller;
 
+import com.server.app.model.Account;
 import com.server.app.service.AccountService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -23,10 +24,10 @@ public class AccountController {
         }
     }
 
-    @PostMapping(value = "/getAccountsByUserUsername/{username}")
-    public ResponseEntity<?> getAccountsByUserUsername(@PathVariable String username) throws Exception {
+    @PostMapping(value = "/getAccountsByUsername/{username}")
+    public ResponseEntity<?> getAccountsByUsername(@PathVariable String username) throws Exception {
         try {
-            return ResponseEntity.ok(service.getAccountsByUserUsername(username));
+            return ResponseEntity.ok(service.getAccountsByUsername(username));
         }catch (Exception e){
             throw new Exception("işlem geçersiz");
         }
@@ -49,6 +50,24 @@ public class AccountController {
             return ResponseEntity.ok().body("Kayıt Silindi");
         }catch (Exception e){
             return ResponseEntity.badRequest().body("İşlem geçersiz");
+        }
+    }
+
+    @PutMapping(value = "/updateAccount")
+    public ResponseEntity<?> updateAccount(@RequestBody Map<String,String> map) throws Exception {
+        try {
+            return ResponseEntity.ok(service.updateAccount(map));
+        }catch (Exception e){
+            throw new Exception("işlem geçersiz");
+        }
+    }
+
+    @GetMapping(value = "/getAccountByNumber/{number}")
+    public ResponseEntity<?> getAccountByNumber(@PathVariable String number) throws Exception {
+        try {
+            return ResponseEntity.ok(service.getAccountByNumber(number));
+        }catch (Exception e){
+            throw new Exception("işlem geçersiz");
         }
     }
 }

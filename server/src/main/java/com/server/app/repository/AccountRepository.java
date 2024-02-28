@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account,String> {
@@ -17,6 +18,11 @@ public interface AccountRepository extends JpaRepository<Account,String> {
             "from Account e " +
             "where e.user.username = :username " +
             "order by e.createdAt desc ")
-    List<AccountDto> getAccountsByUserUsername(@Param("username") String username);
+    List<AccountDto> getAccountsByUsername(@Param("username") String username);
+
     void deleteAccountByNumber(String number);
+
+    Optional<Account> getAccountByNumber(String number);
+
+    Optional<Account> getAccountById(String id);
 }

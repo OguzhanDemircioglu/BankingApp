@@ -58,7 +58,6 @@ public class AuthenticationSrvImpl implements AuthenticationService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Credentials"));
         if(jwtService.isTokenValid(request.getToken(),user)){
             String jwt = jwtService.generateToken(user);
-            String refreshJwt = jwtService.generateRefreshToken(new HashMap<>(),user);
 
             return JwtAuthResponse.builder().token(jwt).refreshToken(request.getToken()).build();
         }

@@ -1,7 +1,7 @@
 package com.server.app.model;
 
-import com.server.app.constant.Operation;
-import com.server.app.constant.Status;
+import com.server.app.model.enums.Operation;
+import com.server.app.model.enums.Status;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;

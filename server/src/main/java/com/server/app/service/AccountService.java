@@ -5,10 +5,13 @@ import com.server.app.model.Account;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface AccountService {
     List<Account> findAllAccounts();
-    List<AccountDto> getAccountsByUserUsername(String username);
+    List<AccountDto> getAccountsByUsername(String username);
     Account save(Map<String,String> map);
     void deleteAccountByNumber(String number);
+    Account updateAccount(Map<String,String> map);
+    Account getAccountByNumber(String number);
 }

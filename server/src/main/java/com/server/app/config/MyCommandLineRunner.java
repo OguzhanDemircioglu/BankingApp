@@ -1,7 +1,7 @@
 package com.server.app.config;
 
-import com.server.app.constant.Operation;
-import com.server.app.constant.Status;
+import com.server.app.model.enums.Operation;
+import com.server.app.model.enums.Status;
 import com.server.app.model.Account;
 import com.server.app.model.Transaction;
 import com.server.app.model.User;

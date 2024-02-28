@@ -21,8 +21,8 @@ public class UserSrvImpl implements UserService {
     }
 
     @Override
-    public void deleteUserByUsername(String userId) {
-        repository.deleteUserByUsername(userId);
+    public void deleteUserByUsername(String username) {
+        repository.deleteUserByUsername(username);
     }
 
     @Override

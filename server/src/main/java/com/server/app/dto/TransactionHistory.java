@@ -1,7 +1,7 @@
 package com.server.app.dto;
 
-import com.server.app.constant.Operation;
-import com.server.app.constant.Status;
+import com.server.app.model.enums.Operation;
+import com.server.app.model.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
