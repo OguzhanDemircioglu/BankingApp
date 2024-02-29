@@ -25,7 +25,9 @@ public class AccountSrvImpl implements AccountService {
     }
 
     @Override
-    public List<AccountDto> getAccountsByUsername(String username) {return repository.getAccountsByUsername(username);}
+    public List<AccountDto> getAccountsByUsername(String username) {
+        return repository.getAccountsByUsername(username);
+    }
 
     @Override
     public Account save(Map<String, String> map) {
@@ -37,13 +39,13 @@ public class AccountSrvImpl implements AccountService {
         repository.findAll().stream()
                 .filter(i -> i.getNumber().equals(map.get("number")) || i.getName().equals(map.get("name")))
                 .findFirst().ifPresent(i -> {
-            throw new RuntimeException("Bu numara veya İsimde zaten bir kayıt var");
-        });
+                    throw new RuntimeException("Bu numara veya İsimde zaten bir kayıt var");
+                });
 
         return repository.save(
                 Account.builder()
                         .user(userService.findUserByUsername(map.get("username"))
-                                .orElseThrow(()-> new RuntimeException("Username kayıtlı değil")))
+                                .orElseThrow(() -> new RuntimeException("Username kayıtlı değil")))
                         .name(map.get("name"))
                         .number(map.get("number"))
                         .balance(new BigDecimal(map.get("amount")))
@@ -59,7 +61,7 @@ public class AccountSrvImpl implements AccountService {
     @Override
     public Account updateAccount(Map<String, String> map) {
         Account account = repository.getAccountById(map.get("accountID"))
-                .orElseThrow(()-> new RuntimeException("Account tanımlı değil"));
+                .orElseThrow(() -> new RuntimeException("Account tanımlı değil"));
 
         if (!map.get("name").isEmpty()) {
             account.setName(map.get("name"));
@@ -82,6 +84,6 @@ public class AccountSrvImpl implements AccountService {
     @Override
     public Account getAccountByNumber(String number) {
         return repository.getAccountByNumber(number)
-                .orElseThrow(()-> new RuntimeException("Account tanımlı değil"));
+                .orElseThrow(() -> new RuntimeException("Account tanımlı değil"));
     }
 }

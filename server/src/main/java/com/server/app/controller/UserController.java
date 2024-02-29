@@ -16,18 +16,18 @@ public class UserController {
     public ResponseEntity<?> findUserByUsername(@PathVariable String username) throws Exception {
         try {
             return ResponseEntity.ok(service.findUserByUsername(username));
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception("işlem geçersiz");
         }
     }
 
     @Transactional
     @DeleteMapping(value = "/deleteUserByUsername/{username}")
-    public ResponseEntity<?> deleteUserByUsername(@PathVariable String username){
+    public ResponseEntity<?> deleteUserByUsername(@PathVariable String username) {
         try {
             service.deleteUserByUsername(username);
             return ResponseEntity.ok().body("Kayıt Silindi");
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("İşlem geçersiz");
         }
     }

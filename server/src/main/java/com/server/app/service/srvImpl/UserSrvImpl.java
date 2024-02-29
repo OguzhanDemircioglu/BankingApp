@@ -27,7 +27,7 @@ public class UserSrvImpl implements UserService {
 
     @Override
     public UserDetailsService userDetailsService() {
-        return username -> repository.findUserByUsername(username).orElseThrow(()-> new UsernameNotFoundException(username));
+        return username -> repository.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username));
     }
 
 }

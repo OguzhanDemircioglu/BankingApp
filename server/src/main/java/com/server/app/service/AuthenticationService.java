@@ -7,6 +7,8 @@ import com.server.app.model.User;
 
 public interface AuthenticationService {
     User signUp(UserRequestDto request);
+
     JwtAuthResponse signIn(UserRequestDto request);
+
     JwtAuthResponse refreshToken(RefreshTokenRequest request);
 }

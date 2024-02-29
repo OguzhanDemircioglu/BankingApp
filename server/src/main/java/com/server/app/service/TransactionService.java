@@ -8,5 +8,6 @@ import java.util.Map;
 
 public interface TransactionService {
     List<TransactionHistory> getAllTransactionsByUsername(String userId);
-    Transaction save(Map<String,String> map);
+
+    Transaction save(Map<String, String> map);
 }

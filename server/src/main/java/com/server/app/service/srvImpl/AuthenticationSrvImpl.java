@@ -26,7 +26,7 @@ public class AuthenticationSrvImpl implements AuthenticationService {
     private final JWTService jwtService;
 
     @Override
-    public User signUp(UserRequestDto request){
+    public User signUp(UserRequestDto request) {
         return userRepository.save(
                 User.builder()
                         .email(request.getEmail())
@@ -40,13 +40,13 @@ public class AuthenticationSrvImpl implements AuthenticationService {
     @Override
     public JwtAuthResponse signIn(UserRequestDto request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                request.getUsername(),request.getPassword()));
+                request.getUsername(), request.getPassword()));
 
         User user = userRepository.findUserByUsername(request.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Credentials"));
 
         String jwt = jwtService.generateToken(user);
-        String refreshJwt = jwtService.generateRefreshToken(new HashMap<>(),user);
+        String refreshJwt = jwtService.generateRefreshToken(new HashMap<>(), user);
 
         return JwtAuthResponse.builder().token(jwt).refreshToken(refreshJwt).build();
     }
@@ -56,7 +56,7 @@ public class AuthenticationSrvImpl implements AuthenticationService {
         String username = jwtService.extractUserName(request.getToken());
         User user = userRepository.findUserByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Credentials"));
-        if(jwtService.isTokenValid(request.getToken(),user)){
+        if (jwtService.isTokenValid(request.getToken(), user)) {
             String jwt = jwtService.generateToken(user);
 
             return JwtAuthResponse.builder().token(jwt).refreshToken(request.getToken()).build();

@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface UserService {
     Optional<User> findUserByUsername(String username);
+
     void deleteUserByUsername(String userId);
+
     UserDetailsService userDetailsService();
 }

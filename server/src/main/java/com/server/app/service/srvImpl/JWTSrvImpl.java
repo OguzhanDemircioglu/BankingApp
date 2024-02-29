@@ -39,12 +39,12 @@ public class JWTSrvImpl implements JWTService {
     }
 
     @Override
-    public String extractUserName(String token){
-        return extractClaim(token,Claims::getSubject);
+    public String extractUserName(String token) {
+        return extractClaim(token, Claims::getSubject);
     }
 
     @Override
-    public boolean isTokenValid(String token, UserDetails userDetails){
+    public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUserName(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
@@ -59,12 +59,12 @@ public class JWTSrvImpl implements JWTService {
         return claimsResolvers.apply(claims);
     }
 
-    private Claims extractAllClaims(String token){
+    private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder().setSigningKey(getSignInKey()).build().parseClaimsJws(token).getBody();
     }
 
-    private boolean isTokenExpired(String token){
-        return extractClaim(token,Claims::getExpiration).before(new Date());
+    private boolean isTokenExpired(String token) {
+        return extractClaim(token, Claims::getExpiration).before(new Date());
     }
 
 }

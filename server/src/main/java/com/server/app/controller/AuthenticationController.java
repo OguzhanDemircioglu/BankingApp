@@ -21,7 +21,7 @@ public class AuthenticationController {
     public ResponseEntity<?> signUp(@RequestBody UserRequestDto request) throws Exception {
         try {
             return ResponseEntity.ok(service.signUp(request));
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception("işlem geçersiz");
         }
     }
@@ -30,7 +30,7 @@ public class AuthenticationController {
     public ResponseEntity<JwtAuthResponse> signIn(@RequestBody UserRequestDto request) throws Exception {
         try {
             return ResponseEntity.ok(service.signIn(request));
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception("işlem geçersiz");
         }
     }
@@ -39,7 +39,7 @@ public class AuthenticationController {
     public ResponseEntity<JwtAuthResponse> refresh(@RequestBody RefreshTokenRequest request) throws Exception {
         try {
             return ResponseEntity.ok(service.refreshToken(request));
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception("işlem geçersiz");
         }
     }

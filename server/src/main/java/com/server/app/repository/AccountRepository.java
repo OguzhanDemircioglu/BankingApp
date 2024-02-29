@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface AccountRepository extends JpaRepository<Account,String> {
+public interface AccountRepository extends JpaRepository<Account, String> {
 
     @Query("Select new com.server.app.dto.AccountDto (" +
             "e.user.username, e.number, e.name,e.balance) " +

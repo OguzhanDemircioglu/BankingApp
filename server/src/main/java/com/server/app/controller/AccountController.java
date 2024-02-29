@@ -1,6 +1,5 @@
 package com.server.app.controller;
 
-import com.server.app.model.Account;
 import com.server.app.service.AccountService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,7 @@ public class AccountController {
     public ResponseEntity<?> findAllAccounts() throws Exception {
         try {
             return ResponseEntity.ok(service.findAllAccounts());
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception("işlem geçersiz");
         }
     }
@@ -28,36 +27,36 @@ public class AccountController {
     public ResponseEntity<?> getAccountsByUsername(@PathVariable String username) throws Exception {
         try {
             return ResponseEntity.ok(service.getAccountsByUsername(username));
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception("işlem geçersiz");
         }
     }
 
     @PostMapping(value = "/save")
-    public ResponseEntity<?> save(@RequestBody Map<String,String> map) throws Exception {
+    public ResponseEntity<?> save(@RequestBody Map<String, String> map) throws Exception {
         try {
             return ResponseEntity.ok(service.save(map));
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception("işlem geçersiz");
         }
     }
 
     @Transactional
     @DeleteMapping(value = "/deleteAccountByNumber/{number}")
-    public ResponseEntity<?> deleteAccountByNumber(@PathVariable String number){
+    public ResponseEntity<?> deleteAccountByNumber(@PathVariable String number) {
         try {
             service.deleteAccountByNumber(number);
             return ResponseEntity.ok().body("Kayıt Silindi");
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("İşlem geçersiz");
         }
     }
 
     @PutMapping(value = "/updateAccount")
-    public ResponseEntity<?> updateAccount(@RequestBody Map<String,String> map) throws Exception {
+    public ResponseEntity<?> updateAccount(@RequestBody Map<String, String> map) throws Exception {
         try {
             return ResponseEntity.ok(service.updateAccount(map));
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception("işlem geçersiz");
         }
     }
@@ -66,7 +65,7 @@ public class AccountController {
     public ResponseEntity<?> getAccountByNumber(@PathVariable String number) throws Exception {
         try {
             return ResponseEntity.ok(service.getAccountByNumber(number));
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new Exception("işlem geçersiz");
         }
     }

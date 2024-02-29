@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TransactionRepository extends JpaRepository<Transaction,Long> {
+public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
     @Query("Select new com.server.app.dto.TransactionHistory (e.id, " +
             "e.fromAccountId.user.username, e.fromAccountId.number, " +

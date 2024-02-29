@@ -1,10 +1,10 @@
 package com.server.app.service.srvImpl;
 
 import com.server.app.dto.TransactionHistory;
-import com.server.app.model.enums.Operation;
-import com.server.app.model.enums.Status;
 import com.server.app.model.Account;
 import com.server.app.model.Transaction;
+import com.server.app.model.enums.Operation;
+import com.server.app.model.enums.Status;
 import com.server.app.repository.AccountRepository;
 import com.server.app.repository.TransactionRepository;
 import com.server.app.service.TransactionService;
@@ -45,23 +45,23 @@ public class TransactionSrvImpl implements TransactionService {
             toAccount = accountRepository.getAccountByNumber(map.get("toAccountNumber"))
                     .orElseThrow(() -> new IllegalArgumentException("Alıcı Account Tanımlı değil"));
         }
-        
+
         if (trasactionAmount.compareTo(BigDecimal.ZERO) <= 0) {
             return repository.save(
                     Transaction.builder()
-                    .fromAccountId(fromAccount)
-                    .toAccountId(null)
-                    .operation(Operation.valueOf(operationType))
-                    .amount(trasactionAmount)
-                    .status(Status.FAIL)
-                    .transactionDate(LocalDateTime.now())
-                    .build());
+                            .fromAccountId(fromAccount)
+                            .toAccountId(null)
+                            .operation(Operation.valueOf(operationType))
+                            .amount(trasactionAmount)
+                            .status(Status.FAIL)
+                            .transactionDate(LocalDateTime.now())
+                            .build());
         }
 
         BigDecimal fromAccountNextAmount = new BigDecimal(fromAccount.getBalance().longValue() - trasactionAmount.longValue());
         BigDecimal toAccountNextAmount = new BigDecimal(fromAccount.getBalance().longValue() + trasactionAmount.longValue());
 
-        if(fromAccountNextAmount.longValue() < 0){
+        if (fromAccountNextAmount.longValue() < 0) {
             return repository.save(
                     Transaction.builder()
                             .fromAccountId(fromAccount)
@@ -82,13 +82,13 @@ public class TransactionSrvImpl implements TransactionService {
 
                 return repository.save(
                         Transaction.builder()
-                        .fromAccountId(fromAccount)
-                        .toAccountId(null)
-                        .operation(Operation.valueOf(operationType))
-                        .amount(trasactionAmount)
-                        .status(Status.SUCCESS)
-                        .transactionDate(LocalDateTime.now())
-                        .build());
+                                .fromAccountId(fromAccount)
+                                .toAccountId(null)
+                                .operation(Operation.valueOf(operationType))
+                                .amount(trasactionAmount)
+                                .status(Status.SUCCESS)
+                                .transactionDate(LocalDateTime.now())
+                                .build());
             case "TRANSFER", "PAYMENT", "DEPOSIT":
 
                 fromAccount.setBalance(fromAccountNextAmount);
@@ -101,13 +101,13 @@ public class TransactionSrvImpl implements TransactionService {
 
                 return repository.save(
                         Transaction.builder()
-                        .fromAccountId(fromAccount)
-                        .toAccountId(toAccount)
-                        .operation(Operation.valueOf(operationType))
-                        .amount(trasactionAmount)
-                        .status(Status.SUCCESS)
-                        .transactionDate(LocalDateTime.now())
-                        .build());
+                                .fromAccountId(fromAccount)
+                                .toAccountId(toAccount)
+                                .operation(Operation.valueOf(operationType))
+                                .amount(trasactionAmount)
+                                .status(Status.SUCCESS)
+                                .transactionDate(LocalDateTime.now())
+                                .build());
             default:
                 throw new RuntimeException("Geçersiz Operasyon Tipi");
         }
