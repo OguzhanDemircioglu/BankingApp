@@ -29,8 +29,7 @@ public class SecurityConfigration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req.requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers("/api/**").hasAnyAuthority("ROLE_ADMIN")
+                        .requestMatchers("/**").permitAll()
                         .anyRequest().fullyAuthenticated())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
