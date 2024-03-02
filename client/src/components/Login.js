@@ -30,14 +30,14 @@ const Login = () => {
                     alert("İşlem şuan gerçekleştirilemiyor")
                     return;
                 }
-                navigate('/');
+
                 return response.json();
             }).then(data => {
 
             returnVal.username = username;
             returnVal.token = data.token;
             dispatch(setCurrentUser(returnVal));
-
+            navigate('/');
         })
             .catch(error => {
                 console.error('Error fetching data:', error);
@@ -45,7 +45,7 @@ const Login = () => {
     }
 
     return (
-        <div className="row justify-content-center pt-5">
+        <div style={{marginTop:"30px"}} className="row justify-content-center pt-5">
             <div className="col-sm-6">
                 <div className="card p-4">
                     <h1 className="text-center mb-3">Login </h1>

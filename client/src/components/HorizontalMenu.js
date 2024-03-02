@@ -5,12 +5,14 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faVideoSlash} from "@fortawesome/free-solid-svg-icons/faVideoSlash";
 import "../App.css";
 import Store from "../store";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {clearCurrentUser} from "../store/action/user";
 
-const currentUser = Store.getState().user;
-
 export default function HorizontalMenu() {
+
+    const currentUser = useSelector((state) => state.user);
+
+    const isLoggedIn = currentUser?.token;
     const dispatch = useDispatch();
 
     return (
@@ -30,7 +32,7 @@ export default function HorizontalMenu() {
                             Transaction History
                         </NavLink>
                     </Nav>
-                    {currentUser?.token ?
+                    {isLoggedIn ?
                         <NavLink className="nav-link" style={{color: "cyan"}} href="/login"
                                  onClick={()=>dispatch(clearCurrentUser()) }>
                             LogOut
