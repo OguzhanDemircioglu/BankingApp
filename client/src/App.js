@@ -1,7 +1,6 @@
 import Login from "./components/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
 import Register from "./components/Register";
-import Store from "./store";
 import HorizontalMenu from "./components/HorizontalMenu";
 import React from "react";
 import TransactionHistory from "./components/TransactionHistory";
@@ -20,15 +19,15 @@ function App() {
             <Routes>
                 {!isLoggedIn ? (
                     <>
-                        <Route path="/" element={<Navigate to="/login" />} />
-                        <Route path="/transactionHistory" element={<Navigate to="/login" />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/register" element={<Register />} />
+                        <Route path="/" element={<Navigate to="/login"/>}/>
+                        <Route path="/transactionHistory" element={<Navigate to="/login"/>}/>
+                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/register" element={<Register/>}/>
                     </>
                 ) : (
                     <>
-                    <Route path="/transactionHistory" element={<TransactionHistory/>}/>
-                    <Route path="/" element={<Home />} />
+                        <Route path="/transactionHistory" element={<TransactionHistory/>}/>
+                        <Route path="/" element={<Home/>}/>
                     </>
                 )}
             </Routes>

@@ -57,11 +57,11 @@ const Home = () => {
     function save(e) {
         e.preventDefault();
 
-        if(formData.number==='' ||
-            formData.name==='' ||
-            formData.amount=== ''){
+        if (formData.number === '' ||
+            formData.name === '' ||
+            formData.amount === '') {
             alert("Alanların hepsi dolu olmalı")
-            return ;
+            return;
         }
         return axios.post(
             BASE_URL + '/account/save',
@@ -97,12 +97,12 @@ const Home = () => {
         e.preventDefault();
         formUpdateData.accountId = editID;
 
-        if(formUpdateData.number ==='' || formUpdateData.name===''){
+        if (formUpdateData.number === '' || formUpdateData.name === '') {
             alert("AccountNumber ve AccountName Boş olmamalı");
             return;
         }
 
-        if(items.filter(i => i.number === formUpdateData.number || i.name === formUpdateData.name).length > 0) {
+        if (items.filter(i => i.number === formUpdateData.number || i.name === formUpdateData.name).length > 0) {
             alert("AccountNumber ve AccountName Öncekilerden farklı olmalı");
             return;
         }
@@ -149,29 +149,29 @@ const Home = () => {
     function beginTransaction(e) {
         e.preventDefault()
 
-        if(formTransaction.operationType===''){
+        if (formTransaction.operationType === '') {
             alert("Operasyon Tipi Seçiniz!")
-            return ;
-        }else if(formTransaction.operationType !== "WITHDRAWAL" &&
+            return;
+        } else if (formTransaction.operationType !== "WITHDRAWAL" &&
             formTransaction.operationType !== "DEPOSIT" &&
-            formTransaction.toAccountNumber===''){
+            formTransaction.toAccountNumber === '') {
             alert("Alıcı Bilgisini Seçiniz!")
-            return ;
+            return;
         }
 
-        if(formTransaction.fromAccountNumber===''){
+        if (formTransaction.fromAccountNumber === '') {
             alert("Gönderici Bilgisini Seçiniz!")
-            return ;
+            return;
         }
 
-        if(formTransaction.amount===''){
+        if (formTransaction.amount === '') {
             alert("Ücret Bilgisi Girilmedi!")
-            return ;
+            return;
         }
 
-        if(formTransaction.fromAccountNumber===formTransaction.toAccountNumber){
+        if (formTransaction.fromAccountNumber === formTransaction.toAccountNumber) {
             alert("Aynı Accountlar ile Transaction Yapılamaz!")
-            return ;
+            return;
         }
 
         return axios.post(

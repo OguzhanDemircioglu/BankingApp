@@ -4,7 +4,6 @@ import {Container, Nav, NavLink} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faVideoSlash} from "@fortawesome/free-solid-svg-icons/faVideoSlash";
 import "../App.css";
-import Store from "../store";
 import {useDispatch, useSelector} from "react-redux";
 import {clearCurrentUser} from "../store/action/user";
 
@@ -34,7 +33,7 @@ export default function HorizontalMenu() {
                     </Nav>
                     {isLoggedIn ?
                         <NavLink className="nav-link" style={{color: "cyan"}} href="/login"
-                                 onClick={()=>dispatch(clearCurrentUser()) }>
+                                 onClick={() => dispatch(clearCurrentUser())}>
                             LogOut
                         </NavLink>
                         :
