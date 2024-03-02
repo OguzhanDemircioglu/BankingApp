@@ -66,7 +66,7 @@ public class MyCommandLineRunner implements CommandLineRunner {
                 .transactionDate(LocalDateTime.now()).build();
         transactionRepository.save(transaction1);
 
-        Transaction transaction2 = Transaction.builder().fromAccountId(oguzHesap).toAccountId(null)
+        Transaction transaction2 = Transaction.builder().fromAccountId(oguzHesap).toAccountId(oguzHesap)
                 .amount(BigDecimal.valueOf(100)).status(Status.SUCCESS).operation(Operation.WITHDRAWAL)
                 .transactionDate(LocalDateTime.now()).build();
         transactionRepository.save(transaction2);

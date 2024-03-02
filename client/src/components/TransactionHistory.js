@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import Store from "./store";
+import Store from "../store";
 import axios from "axios";
-import {BASE_URL} from "./store/Enums";
+import {BASE_URL} from "../store/Enums";
 import {Input} from "@mui/material";
 import "../App.css"
 

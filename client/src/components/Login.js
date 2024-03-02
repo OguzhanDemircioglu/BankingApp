@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import "../App.css";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {setCurrentUser} from "./store/action/user";
-import {BASE_URL} from "./store/Enums";
+import {setCurrentUser} from "../store/action/user";
+import {BASE_URL} from "../store/Enums";
 
 const Login = () => {
     const navigate = useNavigate();

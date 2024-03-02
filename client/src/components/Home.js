@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Input} from "@mui/material";
-import Store from "./store";
+import Store from "../store";
 import axios from "axios";
-import {BASE_URL, Operation} from "./store/Enums";
+import {BASE_URL, Operation} from "../store/Enums";
 import "../App.css"
 
 const Home = () => {

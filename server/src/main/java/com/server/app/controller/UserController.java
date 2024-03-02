@@ -12,15 +12,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService service;
 
-    @PostMapping(value = "/findUserByUsername/{username}")
-    public ResponseEntity<?> findUserByUsername(@PathVariable String username) throws Exception {
-        try {
-            return ResponseEntity.ok(service.findUserByUsername(username));
-        } catch (Exception e) {
-            throw new Exception("işlem geçersiz");
-        }
-    }
-
     @Transactional
     @DeleteMapping(value = "/deleteUserByUsername/{username}")
     public ResponseEntity<?> deleteUserByUsername(@PathVariable String username) {

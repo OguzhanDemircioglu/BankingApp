@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import {useNavigate} from 'react-router-dom';
 import "../App.css";
-import {BASE_URL} from "./store/Enums";
+import {BASE_URL} from "../store/Enums";
 
 export default function Register() {
     const navigate = useNavigate();

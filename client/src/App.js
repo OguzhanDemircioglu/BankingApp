@@ -1,7 +1,7 @@
 import Login from "./components/Login";
 import {Route, Routes} from "react-router-dom";
 import Register from "./components/Register";
-import Store from "./components/store";
+import Store from "./store";
 import HorizontalMenu from "./components/HorizontalMenu";
 import React from "react";
 import TransactionHistory from "./components/TransactionHistory";

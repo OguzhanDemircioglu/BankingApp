@@ -14,15 +14,6 @@ import java.util.Map;
 public class AccountController {
     private final AccountService service;
 
-    @PostMapping(value = "/findAllAccounts")
-    public ResponseEntity<?> findAllAccounts() throws Exception {
-        try {
-            return ResponseEntity.ok(service.findAllAccounts());
-        } catch (Exception e) {
-            throw new Exception("işlem geçersiz");
-        }
-    }
-
     @PostMapping(value = "/getAllAccounts")
     public ResponseEntity<?> getAllAccounts() throws Exception {
         try {

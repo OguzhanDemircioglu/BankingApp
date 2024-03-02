@@ -3,6 +3,7 @@ package com.server.app.service.srvImpl;
 import com.server.app.dto.AccountDto;
 import com.server.app.model.Account;
 import com.server.app.repository.AccountRepository;
+import com.server.app.repository.UserRepository;
 import com.server.app.service.AccountService;
 import com.server.app.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AccountSrvImpl implements AccountService {
     private final AccountRepository repository;
-    private final UserService userService;
-
-    @Override
-    public List<Account> findAllAccounts() {
-        return repository.findAll();
-    }
+    private final UserRepository userRepository;
 
     @Override
     public List<AccountDto> getAllAccounts() {
@@ -44,7 +40,7 @@ public class AccountSrvImpl implements AccountService {
 
         return repository.save(
                 Account.builder()
-                        .user(userService.findUserByUsername(map.get("username"))
+                        .user(userRepository.findUserByUsername(map.get("username"))
                                 .orElseThrow(() -> new RuntimeException("Username kayıtlı değil")))
                         .name(map.get("name"))
                         .number(map.get("number"))

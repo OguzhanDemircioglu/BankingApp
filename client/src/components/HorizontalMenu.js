@@ -4,9 +4,9 @@ import {Container, Nav, NavLink} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faVideoSlash} from "@fortawesome/free-solid-svg-icons/faVideoSlash";
 import "../App.css";
-import Store from "./store";
+import Store from "../store";
 import {useDispatch} from "react-redux";
-import {clearCurrentUser} from "./store/action/user";
+import {clearCurrentUser} from "../store/action/user";
 
 const currentUser = Store.getState().user;
 
