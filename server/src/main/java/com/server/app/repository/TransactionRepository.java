@@ -18,7 +18,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             "e.toAccountId.user.username, e.toAccountId.number, " +
             "e.transactionDate, e.status )" +
             "from Transaction e " +
-            "where e.fromAccountId.user.username = :username or e.toAccountId.user.username = :username " +
             "order by e.transactionDate desc ")
-    List<TransactionHistory> getAllTransactionsByUsername(@Param("username") String username);
+    List<TransactionHistory> getAllTransactionsByUsername();
 }

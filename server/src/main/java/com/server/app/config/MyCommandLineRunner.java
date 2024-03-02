@@ -49,6 +49,14 @@ public class MyCommandLineRunner implements CommandLineRunner {
                 .user(oguz).createdAt(LocalDateTime.now()).build();
         accountRepository.save(oguzHesap);
 
+        Account oguzHesap1 = Account.builder().name("garanti").number("124").balance(BigDecimal.valueOf(100))
+                .user(oguz).createdAt(LocalDateTime.now()).build();
+        accountRepository.save(oguzHesap1);
+
+        Account oguzHesap2 = Account.builder().name("Deniz Bank").number("323332322").balance(BigDecimal.valueOf(500))
+                .user(oguz).createdAt(LocalDateTime.now()).build();
+        accountRepository.save(oguzHesap2);
+
         Account milaHesap = Account.builder().name("isBankAntalya").number("7890870766961").balance(BigDecimal.valueOf(3000))
                 .user(mila).createdAt(LocalDateTime.now()).build();
         accountRepository.save(milaHesap);

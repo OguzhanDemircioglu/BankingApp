@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface TransactionService {
-    List<TransactionHistory> getAllTransactionsByUsername(String userId);
+    List<TransactionHistory> getAllTransactionsByUsername();
 
     Transaction save(Map<String, String> map);
 }

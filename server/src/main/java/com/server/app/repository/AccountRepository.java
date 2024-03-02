@@ -14,11 +14,10 @@ import java.util.Optional;
 public interface AccountRepository extends JpaRepository<Account, String> {
 
     @Query("Select new com.server.app.dto.AccountDto (" +
-            "e.user.username, e.number, e.name,e.balance) " +
+            "e.id,e.user.username,e.number, e.name,e.balance, e.createdAt, e.updatedAt) " +
             "from Account e " +
-            "where e.user.username = :username " +
             "order by e.createdAt desc ")
-    List<AccountDto> getAccountsByUsername(@Param("username") String username);
+    List<AccountDto> getAllAccounts();
 
     void deleteAccountByNumber(String number);
 

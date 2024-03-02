@@ -25,8 +25,8 @@ public class AccountSrvImpl implements AccountService {
     }
 
     @Override
-    public List<AccountDto> getAccountsByUsername(String username) {
-        return repository.getAccountsByUsername(username);
+    public List<AccountDto> getAllAccounts() {
+        return repository.getAllAccounts();
     }
 
     @Override
@@ -59,8 +59,8 @@ public class AccountSrvImpl implements AccountService {
     }
 
     @Override
-    public Account updateAccount(Map<String, String> map) {
-        Account account = repository.getAccountById(map.get("accountID"))
+    public void updateAccount(Map<String, String> map) {
+        Account account = repository.getAccountById(map.get("accountId"))
                 .orElseThrow(() -> new RuntimeException("Account tanımlı değil"));
 
         if (!map.get("name").isEmpty()) {
@@ -73,12 +73,12 @@ public class AccountSrvImpl implements AccountService {
             account.setUpdatedAt(LocalDateTime.now());
         }
 
-        if (!map.get("balance").isEmpty()) {
-            account.setBalance(new BigDecimal(map.get("balance")));
+        if (!map.get("amount").isEmpty()) {
+            account.setBalance(new BigDecimal(map.get("amount")));
             account.setUpdatedAt(LocalDateTime.now());
         }
+        repository.save(account);
 
-        return repository.save(account);//put mapping nesne değişmesi gerekebilir dönüş için
     }
 
     @Override

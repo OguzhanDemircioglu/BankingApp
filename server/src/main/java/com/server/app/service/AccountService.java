@@ -9,13 +9,13 @@ import java.util.Map;
 public interface AccountService {
     List<Account> findAllAccounts();
 
-    List<AccountDto> getAccountsByUsername(String username);
+    List<AccountDto> getAllAccounts();
 
     Account save(Map<String, String> map);
 
     void deleteAccountByNumber(String number);
 
-    Account updateAccount(Map<String, String> map);
+    void updateAccount(Map<String, String> map);
 
     Account getAccountByNumber(String number);
 }

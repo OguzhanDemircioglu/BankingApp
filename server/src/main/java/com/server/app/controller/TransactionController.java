@@ -13,10 +13,10 @@ import java.util.Map;
 public class TransactionController {
     private final TransactionService service;
 
-    @PostMapping(value = "/getAllTransactionsByUsername/{username}")
-    public ResponseEntity<?> getAllTransactionsByUsername(@PathVariable String username) throws Exception {
+    @PostMapping(value = "/getAllTransactions")
+    public ResponseEntity<?> getAllTransactionsByUsername() throws Exception {
         try {
-            return ResponseEntity.ok(service.getAllTransactionsByUsername(username));
+            return ResponseEntity.ok(service.getAllTransactionsByUsername());
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e.getMessage());
         } catch (RuntimeException e) {

@@ -3,10 +3,10 @@ import React from "react";
 import {Container, Nav, NavLink} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faVideoSlash} from "@fortawesome/free-solid-svg-icons/faVideoSlash";
-import "../../App.css";
-import Store from "../store";
+import "../App.css";
+import Store from "./store";
 import {useDispatch} from "react-redux";
-import {clearCurrentUser, setCurrentUser} from "../store/action/user";
+import {clearCurrentUser} from "./store/action/user";
 
 const currentUser = Store.getState().user;
 
@@ -30,9 +30,6 @@ export default function HorizontalMenu() {
                             Transaction History
                         </NavLink>
                     </Nav>
-                    {/*<NavLink className="nav-link" style={{color: "cyan", marginRight: "10px"}} href="/register">
-                        Register
-                    </NavLink>*/}
                     {currentUser?.token ?
                         <NavLink className="nav-link" style={{color: "cyan"}} href="/login"
                                  onClick={()=>dispatch(clearCurrentUser()) }>

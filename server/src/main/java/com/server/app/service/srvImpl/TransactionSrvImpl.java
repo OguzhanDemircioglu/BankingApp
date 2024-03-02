@@ -23,8 +23,8 @@ public class TransactionSrvImpl implements TransactionService {
     private final AccountRepository accountRepository;
 
     @Override
-    public List<TransactionHistory> getAllTransactionsByUsername(String userId) {
-        return repository.getAllTransactionsByUsername(userId);
+    public List<TransactionHistory> getAllTransactionsByUsername() {
+        return repository.getAllTransactionsByUsername();
     }
 
     @Override
@@ -40,8 +40,10 @@ public class TransactionSrvImpl implements TransactionService {
         Account fromAccount = accountRepository.getAccountByNumber(map.get("fromAccountNumber"))
                 .orElseThrow(() -> new IllegalArgumentException("Gönderen Account Tanımlı değil"));
 
-        Account toAccount = new Account();
-        if (!operationType.equals("WITHDRAWAL")) {
+        Account toAccount;
+        if(map.get("toAccountNumber").isEmpty()){
+            toAccount = fromAccount;
+        }else {
             toAccount = accountRepository.getAccountByNumber(map.get("toAccountNumber"))
                     .orElseThrow(() -> new IllegalArgumentException("Alıcı Account Tanımlı değil"));
         }
@@ -50,7 +52,7 @@ public class TransactionSrvImpl implements TransactionService {
             return repository.save(
                     Transaction.builder()
                             .fromAccountId(fromAccount)
-                            .toAccountId(null)
+                            .toAccountId(toAccount)
                             .operation(Operation.valueOf(operationType))
                             .amount(trasactionAmount)
                             .status(Status.FAIL)
@@ -58,14 +60,14 @@ public class TransactionSrvImpl implements TransactionService {
                             .build());
         }
 
-        BigDecimal fromAccountNextAmount = new BigDecimal(fromAccount.getBalance().longValue() - trasactionAmount.longValue());
-        BigDecimal toAccountNextAmount = new BigDecimal(fromAccount.getBalance().longValue() + trasactionAmount.longValue());
+        BigDecimal addition = new BigDecimal(fromAccount.getBalance().longValue() + trasactionAmount.longValue());
+        BigDecimal extraction = new BigDecimal(fromAccount.getBalance().longValue() - trasactionAmount.longValue());
 
-        if (fromAccountNextAmount.longValue() < 0) {
+        if (!operationType.equals("DEPOSIT") && extraction.longValue() < 0) {
             return repository.save(
                     Transaction.builder()
                             .fromAccountId(fromAccount)
-                            .toAccountId(null)
+                            .toAccountId(toAccount)
                             .operation(Operation.valueOf(operationType))
                             .amount(trasactionAmount)
                             .status(Status.FAIL)
@@ -74,28 +76,28 @@ public class TransactionSrvImpl implements TransactionService {
         }
 
         switch (operationType) {
-            case "WITHDRAWAL":
+            case "WITHDRAWAL" , "DEPOSIT":
 
-                fromAccount.setBalance(fromAccountNextAmount);
+                fromAccount.setBalance(operationType.equals("WITHDRAWAL") ? extraction: addition);
                 fromAccount.setUpdatedAt(LocalDateTime.now());
                 accountRepository.save(fromAccount);
 
                 return repository.save(
                         Transaction.builder()
                                 .fromAccountId(fromAccount)
-                                .toAccountId(null)
+                                .toAccountId(toAccount)
                                 .operation(Operation.valueOf(operationType))
                                 .amount(trasactionAmount)
                                 .status(Status.SUCCESS)
                                 .transactionDate(LocalDateTime.now())
                                 .build());
-            case "TRANSFER", "PAYMENT", "DEPOSIT":
+            case "TRANSFER", "PAYMENT":
 
-                fromAccount.setBalance(fromAccountNextAmount);
+                fromAccount.setBalance(extraction);
                 fromAccount.setUpdatedAt(LocalDateTime.now());
                 accountRepository.save(fromAccount);
 
-                toAccount.setBalance(toAccountNextAmount);
+                toAccount.setBalance(addition);
                 toAccount.setUpdatedAt(LocalDateTime.now());
                 accountRepository.save(toAccount);
 

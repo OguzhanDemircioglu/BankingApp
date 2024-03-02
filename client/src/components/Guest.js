@@ -1,6 +1,4 @@
 import React from 'react';
-import Login from "./Login";
-import {Navigate} from "react-router-dom";
 
 const Guest = () => {
     return (

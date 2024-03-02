@@ -23,10 +23,10 @@ public class AccountController {
         }
     }
 
-    @PostMapping(value = "/getAccountsByUsername/{username}")
-    public ResponseEntity<?> getAccountsByUsername(@PathVariable String username) throws Exception {
+    @PostMapping(value = "/getAllAccounts")
+    public ResponseEntity<?> getAllAccounts() throws Exception {
         try {
-            return ResponseEntity.ok(service.getAccountsByUsername(username));
+            return ResponseEntity.ok(service.getAllAccounts());
         } catch (Exception e) {
             throw new Exception("işlem geçersiz");
         }
@@ -36,7 +36,9 @@ public class AccountController {
     public ResponseEntity<?> save(@RequestBody Map<String, String> map) throws Exception {
         try {
             return ResponseEntity.ok(service.save(map));
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
+            throw new Exception(e.getMessage());
+        }catch (Exception e) {
             throw new Exception("işlem geçersiz");
         }
     }
@@ -55,7 +57,10 @@ public class AccountController {
     @PutMapping(value = "/updateAccount")
     public ResponseEntity<?> updateAccount(@RequestBody Map<String, String> map) throws Exception {
         try {
-            return ResponseEntity.ok(service.updateAccount(map));
+            service.updateAccount(map);
+            return ResponseEntity.ok().body("Kayıt Update Edildi");
+        } catch (RuntimeException e) {
+            throw new Exception(e.getMessage());
         } catch (Exception e) {
             throw new Exception("işlem geçersiz");
         }
@@ -65,6 +70,8 @@ public class AccountController {
     public ResponseEntity<?> getAccountByNumber(@PathVariable String number) throws Exception {
         try {
             return ResponseEntity.ok(service.getAccountByNumber(number));
+        } catch (RuntimeException e) {
+            throw new Exception(e.getMessage());
         } catch (Exception e) {
             throw new Exception("işlem geçersiz");
         }

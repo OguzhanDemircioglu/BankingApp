@@ -84,3 +84,68 @@
 button {
   min-width: 80px;
 }
+
+#table1 {
+  font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 72%;
+  margin-top: 30px;
+  text-align: center;
+}
+
+#table1 td,
+#table1 th {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+#table1 tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#table1 tr:hover {
+  background-color: #ddd;
+}
+
+#table1 th, tfoot td {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: burlywood;
+  color: white;
+}
+
+
+
+
+
+
+
+#table2 {
+  font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 72%;
+  margin-top: 30px;
+  text-align: center;
+}
+
+#table2 td,
+#table2 th {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+#table2 tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#table2 tr:hover {
+  background-color: #ddd;
+}
+
+#table2 th, tfoot td {
+  padding-top: 12px;
+  text-align: center;
+  background-color: green;
+  color: white;
+}
