@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Input} from "@mui/material";
 import Store from "../store";
-import axios from "axios";
-import {BASE_URL, Operation} from "../store/Enums";
+import {Operation} from "../store/Enums";
 import "../App.css"
+import TransactionService from "../services/TransactionService";
+import AccountService from "../services/AccountService";
+import {setCurrentUser} from "../store/action/user";
 
 const Home = () => {
 
@@ -36,61 +38,24 @@ const Home = () => {
     });
 
     useEffect(() => {
-        getAccountsByUsername();
+        AccountService.getAllAccounts((responseData) => setItems(responseData))
     }, []);
-
-    function getAccountsByUsername() {
-        return axios.post(
-            BASE_URL + '/account/getAllAccounts',
-            {},
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: "Bearer " + currentUser?.token,
-                }
-            }
-        ).then(res => {
-            setItems(res.data)
-        }).catch(err => console.log(err));
-    }
 
     function save(e) {
         e.preventDefault();
-
         if (formData.number === '' ||
             formData.name === '' ||
             formData.amount === '') {
             alert("Alanların hepsi dolu olmalı")
             return;
         }
-        return axios.post(
-            BASE_URL + '/account/save',
-            formData,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: "Bearer " + currentUser?.token,
-                }
-            }
-        ).then(res => {
-            window.location.reload();
-        }).catch(err => console.log(err));
+        AccountService.save(formData);
+        window.location.reload();
     }
 
     function deleteAccountByNumber(e) {
         e.preventDefault();
-        return axios.delete(
-            BASE_URL + `/account/deleteAccountByNumber/${deleteItem}`,
-            {},
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: "Bearer " + currentUser?.token,
-                }
-            }
-        ).then(res => {
-            window.location.reload();
-        }).catch(err => alert("Transaction Kaydı Olan Account Silinemez"));
+        AccountService.delete(deleteItem);
     }
 
     function updateAccount(e) {
@@ -107,18 +72,7 @@ const Home = () => {
             return;
         }
 
-        return axios.put(
-            BASE_URL + '/account/updateAccount',
-            formUpdateData,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: "Bearer " + currentUser?.token,
-                }
-            }
-        ).then(res => {
-            window.location.reload();
-        }).catch(err => console.log(err));
+        AccountService.updateAccount(formUpdateData);
     }
 
     const handleInsert = (e) => {
@@ -174,18 +128,8 @@ const Home = () => {
             return;
         }
 
-        return axios.post(
-            BASE_URL + '/transaction/save',
-            formTransaction,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: "Bearer " + currentUser?.token,
-                }
-            }
-        ).then(res => {
-            window.location.reload();
-        }).catch(err => console.log(err));
+        TransactionService.beginTransaction(formTransaction);
+        window.location.reload();
     }
 
     return (

@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import Store from "../store";
-import axios from "axios";
-import {BASE_URL} from "../store/Enums";
 import {Input} from "@mui/material";
 import "../App.css"
+import TransactionService from "../services/TransactionService";
 
 const TransactionHistory = () => {
 
@@ -12,24 +11,8 @@ const TransactionHistory = () => {
     const [items, setItems] = useState(null);
     const [searchKey, setSearchKey] = useState(null);
 
-    function callTransactionHistory() {
-        return axios.post(
-            BASE_URL + '/transaction/getAllTransactions',
-            {},
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: "Bearer " + currentUser?.token,
-                }
-            }
-        ).then(res => {
-            console.log(res)
-            setItems(res.data)
-        }).catch(err => console.log(err));
-    }
-
     useEffect(() => {
-        callTransactionHistory();
+        TransactionService.callTransactionHistory((responseData) => setItems(responseData))
     }, []);
 
     return (

@@ -3,45 +3,32 @@ import "../App.css";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setCurrentUser} from "../store/action/user";
-import {BASE_URL} from "../store/Enums";
+import AuthService from "../services/AuthService";
 
 const Login = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
 
-    const returnVal = {username, token: ""};
     const dispatch = useDispatch();
 
     const submitForm = () => {
 
-        fetch(BASE_URL + '/auth/signIn', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: null, password: password, username: username
-            })
-        })
-            .then(response => {
+        AuthService.login(password, username, (token) => {
 
-                if (!response.ok) {
-                    alert("İşlem şuan gerçekleştirilemiyor")
-                    return;
-                }
-
-                return response.json();
-            }).then(data => {
-
-            returnVal.username = username;
-            returnVal.token = data.token;
+            const returnVal = {username: username, token: token};
             dispatch(setCurrentUser(returnVal));
-            navigate('/');
-        })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
+            if (token) {
+                new Promise(resolve => {
+                    resolve();
+                }).then(() => {
+                    setTimeout(() => {
+                        navigate('/');
+                        window.location.reload();
+                    }, 2000);
+                });
+            }
+        });
     }
 
     return (

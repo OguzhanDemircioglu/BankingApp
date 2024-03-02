@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import {useNavigate} from 'react-router-dom';
 import "../App.css";
-import {BASE_URL} from "../store/Enums";
+import AuthService from "../services/AuthService";
 
 export default function Register() {
     const navigate = useNavigate();
@@ -10,24 +10,19 @@ export default function Register() {
     const [password, setPassword] = useState(null);
 
     const submitForm = () => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        fetch(BASE_URL + '/auth/signUp', {
-            method: 'POST', headers: {
-                'Content-Type': 'application/json'
-            }, body: JSON.stringify({
-                email: email, password: password, username: username
-            })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('İşlem şuan gerçekleştirilemiyor');
-                }
+        if (!emailRegex.test(email)) {
+            alert("Email Format ı yanlış");
+            return;
+        }
+
+        AuthService.register(email, password, username, (callback) => {
+            if (callback) {
                 navigate('/login')
-                return response.json();
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
+            }
+        })
+
     }
 
     return (<div style={{marginTop: "30px"}} className="row justify-content-center pt-5">
