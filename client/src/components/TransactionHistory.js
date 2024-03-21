@@ -47,8 +47,8 @@ const TransactionHistory = () => {
                             <td>{item.toUsername}</td>
                             <td>{item.toAccountNumber}</td>
                             {item.transactionDate ?
-                                <td>{item.transactionDate[2].length === 1 ? item.transactionDate[2] : "0" + item.transactionDate[2]}
-                                    .{item.transactionDate[1].length === 1 ? item.transactionDate[1] : "0" + item.transactionDate[1]}
+                                <td>{item.transactionDate[2]}
+                                    .{item.transactionDate[1]}
                                     .{item.transactionDate[0]}
                                 </td> : <td/>
                             }

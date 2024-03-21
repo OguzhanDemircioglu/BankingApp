@@ -1,23 +1,23 @@
-import React, {useState} from "react"
+import React, {useRef} from "react"
 import {useNavigate} from 'react-router-dom';
 import "../App.css";
 import AuthService from "../services/AuthService";
 
 export default function Register() {
     const navigate = useNavigate();
-    const [username, setUsername] = useState(null);
-    const [email, setEmail] = useState(null);
-    const [password, setPassword] = useState(null);
+    const usernameRef = useRef();
+    const paswordRef = useRef();
+    const emailRef = useRef();
 
     const submitForm = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        if (!emailRegex.test(email)) {
+        if (!emailRegex.test(emailRef.current.value)) {
             alert("Email Format ı yanlış");
             return;
         }
 
-        AuthService.register(email, password, username, (callback) => {
+        AuthService.register(emailRef.current.value, paswordRef.current.value, usernameRef.current.value, (callback) => {
             if (callback) {
                 navigate('/login')
             }
@@ -32,20 +32,20 @@ export default function Register() {
                     <div className="form-group">
                         <label>Username:</label>
                         <input type="test" className="form-control" placeholder="Enter Username"
-                               onChange={e => setUsername(e.target.value)}
+                               ref={usernameRef}
                                id="username"/>
                     </div>
                     <div className="form-group mt-3">
                         <label>Email address:</label>
                         <input type="email" className="form-control" placeholder="Enter email"
-                               onChange={e => setEmail(e.target.value)}
+                               ref={emailRef}
                                id="email"/>
                     </div>
 
                     <div className="form-group mt-3">
                         <label>Password:</label>
                         <input type="password" className="form-control" placeholder="Enter password"
-                               onChange={e => setPassword(e.target.value)}
+                               ref={paswordRef}
                                id="pwd"/>
                     </div>
                     <button type="button" onClick={submitForm} className="btn btn-primary mt-4">Register</button>

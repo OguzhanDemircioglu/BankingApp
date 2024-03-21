@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef} from 'react';
 import "../App.css";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
@@ -7,25 +7,21 @@ import AuthService from "../services/AuthService";
 
 const Login = () => {
     const navigate = useNavigate();
-    const [username, setUsername] = useState(null);
-    const [password, setPassword] = useState(null);
-
     const dispatch = useDispatch();
+    const usernameRef = useRef();
+    const paswordRef = useRef();
 
     const submitForm = () => {
+        AuthService.login(paswordRef.current.value, usernameRef.current.value, (token) => {
 
-        AuthService.login(password, username, (token) => {
-
-            const returnVal = {username: username, token: token};
+            const returnVal = {username: usernameRef.current.value, token: token};
             dispatch(setCurrentUser(returnVal));
             if (token) {
                 new Promise(resolve => {
                     resolve();
                 }).then(() => {
-                    setTimeout(() => {
-                        navigate('/');
-                        window.location.reload();
-                    }, 2000);
+                    navigate('/');
+                    window.location.reload();
                 });
             }
         });
@@ -39,13 +35,13 @@ const Login = () => {
                     <div className="form-group">
                         <label>Username:</label>
                         <input type="username" className="form-control" placeholder="Enter username"
-                               onChange={e => setUsername(e.target.value)}
+                               ref={usernameRef}
                                id="username"/>
                     </div>
                     <div className="form-group mt-3">
                         <label>Password:</label>
                         <input type="password" className="form-control" placeholder="Enter password"
-                               onChange={e => setPassword(e.target.value)}
+                               ref={paswordRef}
                                id="pwd"/>
                     </div>
                     <button type="button" onClick={submitForm} className="btn btn-primary mt-4">Login</button>

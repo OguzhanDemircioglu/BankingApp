@@ -183,15 +183,15 @@ const Home = () => {
                                         />
                                     </td>
                                     {item.createdAt ?
-                                        <td>{item.createdAt[2].length === 1 ? item.createdAt[2] : "0" + item.createdAt[2]}
-                                            .{item.createdAt[1].length === 1 ? item.createdAt[1] : "0" + item.createdAt[1]}
+                                        <td>{item.createdAt[2]}
+                                            .{item.createdAt[1]}
                                             .{item.createdAt[0]}
                                         </td> :
                                         <td/>
                                     }
                                     {item.updatedAt ?
-                                        <td>{item.updatedAt[2].length === 1 ? item.updatedAt[2] : "0" + item.updatedAt[2]}
-                                            .{item.updatedAt[1].length === 1 ? item.updatedAt[1] : "0" + item.updatedAt[1]}
+                                        <td>{item.updatedAt[2]}
+                                            .{item.updatedAt[1]}
                                             .{item.updatedAt[0]}
                                         </td> :
                                         <td/>
@@ -210,15 +210,15 @@ const Home = () => {
                                     <td>{item.name}</td>
                                     <td>{item.balance}</td>
                                     {item.createdAt ?
-                                        <td>{item.createdAt[2].length === 1 ? item.createdAt[2] : "0" + item.createdAt[2]}
-                                            .{item.createdAt[1].length === 1 ? item.createdAt[1] : "0" + item.createdAt[1]}
+                                        <td>{item.createdAt[2]}
+                                            .{item.createdAt[1]}
                                             .{item.createdAt[0]}
                                         </td> :
                                         <td/>
                                     }
                                     {item.updatedAt ?
-                                        <td>{item.updatedAt[2].length === 1 ? item.updatedAt[2] : "0" + item.updatedAt[2]}
-                                            .{item.updatedAt[1].length === 1 ? item.updatedAt[1] : "0" + item.updatedAt[1]}
+                                        <td>{item.updatedAt[2]}
+                                            .{item.updatedAt[1]}
                                             .{item.updatedAt[0]}
                                         </td> :
                                         <td/>
